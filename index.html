@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>🍳 I-Chef</title>
+    <script src="https://telegram.org/js/telegram-web-app.js"></script>
+    <style>
+        body {
+            margin: 0;
+            padding: 20px;
+            font-family: Arial;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            text-align: center;
+            min-height: 100vh;
+        }
+        .container {
+            max-width: 600px;
+            margin: 0 auto;
+            padding-top: 50px;
+        }
+        h1 { font-size: 3em; margin-bottom: 10px; }
+        .buttons { margin-top: 40px; }
+        button {
+            padding: 20px;
+            margin: 10px;
+            border: none;
+            border-radius: 15px;
+            font-size: 18px;
+            font-weight: bold;
+            cursor: pointer;
+            width: 80%;
+        }
+        .chef { background: #ff9966; color: white; }
+        .customer { background: #36d1dc; color: white; }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>🍳 I-CHEF</h1>
+        <p>Заказ домашней еды у проверенных поваров</p>
+        
+        <div class="buttons">
+            <button class="chef" onclick="selectRole('chef')">👨‍🍳 Я ПОВАР</button>
+            <button class="customer" onclick="selectRole('customer')">🍽️ Я КЛИЕНТ</button>
+        </div>
+    </div>
+
+    <script>
+        // Telegram Web App
+        const tg = window.Telegram.WebApp;
+        tg.expand();
+        tg.BackButton.hide();
+        
+        function selectRole(role) {
+            tg.sendData(JSON.stringify({role: role}));
+            tg.showAlert(`Вы выбрали: ${role === 'chef' ? 'повар' : 'клиент'}`);
+        }
+    </script>
+</body>
+</html>
