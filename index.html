@@ -11,8 +11,11 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;800;900&family=Montserrat:wght@400;500;600&display=swap" rel="stylesheet">
     
+    <!-- Иконки для кабинетов -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
     <style>
-        /* ====== ОСНОВНЫЕ СТИЛИ ====== */
+        /* ====== ОСНОВНЫЕ СТИЛИ (ВАШ ДИЗАЙН) ====== */
         * {
             margin: 0;
             padding: 0;
@@ -25,16 +28,23 @@
             background: #FFFFFF;
             color: #333333;
             min-height: 100vh;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
-            padding: 20px;
             position: relative;
             overflow-x: hidden;
         }
         
-        /* ====== ДЕКОРАТИВНЫЕ ЭЛЕМЕНТЫ ====== */
+        /* ====== СКРЫТЫЕ СТРАНИЦЫ ====== */
+        .page {
+            display: none;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+        
+        .page.active {
+            display: block;
+            opacity: 1;
+        }
+        
+        /* ====== ДЕКОРАТИВНЫЕ ЭЛЕМЕНТЫ ФОНА ====== */
         .background-decor {
             position: absolute;
             z-index: -1;
@@ -59,8 +69,8 @@
             border-radius: 50%;
         }
         
-        /* ====== КОНТЕЙНЕР ====== */
-        .app-container {
+        /* ====== СТРАНИЦА ВЫБОРА РОЛИ (ВАШ ДИЗАЙН) ====== */
+        .role-selection-container {
             max-width: 500px;
             width: 100%;
             text-align: center;
@@ -68,9 +78,11 @@
             flex-direction: column;
             align-items: center;
             padding: 30px 20px;
+            margin: 0 auto;
+            min-height: 100vh;
+            justify-content: center;
         }
         
-        /* ====== ЛОГОТИП И НАЗВАНИЕ ====== */
         .logo-container {
             margin-bottom: 70px;
             animation: fadeInDown 1s ease-out;
@@ -90,16 +102,15 @@
         .logo-text {
             font-family: 'Playfair Display', serif;
             font-size: 72px;
-            font-weight: 900; /* Очень жирный */
-            color: #8B7355; /* Насыщенный бежевый */
+            font-weight: 900;
+            color: #8B7355;
             line-height: 1;
             letter-spacing: -1px;
-            margin-bottom: 8px; /* Увеличил отступ для подзаголовка */
+            margin-bottom: 8px;
             text-shadow: 3px 3px 6px rgba(0,0,0,0.08);
             position: relative;
         }
         
-        /* Декоративная линия под названием */
         .logo-text::after {
             content: '';
             position: absolute;
@@ -117,7 +128,7 @@
             font-weight: 500;
             letter-spacing: 1.5px;
             text-transform: uppercase;
-            margin-top: 25px; /* Увеличил отступ от названия */
+            margin-top: 25px;
             opacity: 0.9;
             animation: fadeIn 1s ease-out 0.3s both;
         }
@@ -127,8 +138,8 @@
             to { opacity: 0.9; }
         }
         
-        /* ====== КНОПКИ ВЫБОРА РОЛИ ====== */
-        .role-selection {
+        /* ====== КНОПКИ ВЫБОРА РОЛИ (ВАШ ДИЗАЙН) ====== */
+        .role-selection-buttons {
             display: flex;
             flex-direction: column;
             gap: 25px;
@@ -155,7 +166,6 @@
             box-shadow: 0 10px 30px rgba(255, 152, 0, 0.15);
         }
         
-        /* Мягкий оранжевый градиент */
         .role-button::before {
             content: '';
             position: absolute;
@@ -189,13 +199,11 @@
             transform: scale(1.15) rotate(5deg);
         }
         
-        /* Эффект нажатия */
         .role-button:active {
             transform: scale(0.98);
             box-shadow: 0 5px 20px rgba(255, 152, 0, 0.2);
         }
         
-        /* Анимация появления кнопок */
         .role-button:nth-child(1) {
             animation: slideUp 0.6s ease-out 0.4s both;
         }
@@ -215,7 +223,6 @@
             }
         }
         
-        /* ====== ДОПОЛНИТЕЛЬНАЯ ИНФОРМАЦИЯ ====== */
         .info-text {
             margin-top: 40px;
             color: #795548;
@@ -224,6 +231,219 @@
             max-width: 320px;
             opacity: 0.8;
             animation: fadeIn 1s ease-out 0.8s both;
+        }
+        
+        /* ====== СТИЛИ ДЛЯ КАБИНЕТОВ ====== */
+        .cabinet-header {
+            background: #FFFFFF;
+            padding: 20px;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.08);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+        
+        .back-button {
+            background: none;
+            border: none;
+            font-size: 20px;
+            color: #FF8A65;
+            cursor: pointer;
+            padding: 5px;
+            width: 40px;
+            height: 40px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 50%;
+            transition: background 0.3s;
+        }
+        
+        .back-button:hover {
+            background: rgba(255, 138, 101, 0.1);
+        }
+        
+        .header-title {
+            font-size: 22px;
+            font-weight: 600;
+            color: #8B7355;
+            flex-grow: 1;
+        }
+        
+        .cabinet-content {
+            padding: 25px 20px;
+            max-width: 600px;
+            margin: 0 auto;
+            padding-bottom: 90px;
+        }
+        
+        .user-card {
+            background: #FFFBF7;
+            border-radius: 20px;
+            padding: 25px;
+            text-align: center;
+            margin-bottom: 25px;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.08);
+        }
+        
+        .user-avatar {
+            width: 80px;
+            height: 80px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, #FFB74D, #FF8A65);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 32px;
+            margin: 0 auto 15px;
+        }
+        
+        .user-name {
+            font-size: 22px;
+            font-weight: 600;
+            color: #8B7355;
+            margin-bottom: 5px;
+        }
+        
+        .user-role {
+            color: #A1887F;
+            font-size: 16px;
+        }
+        
+        .quick-actions {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 15px;
+            margin-bottom: 30px;
+        }
+        
+        .action-card {
+            background: #FFFBF7;
+            border-radius: 15px;
+            padding: 20px;
+            text-align: center;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.05);
+            transition: transform 0.3s;
+            border: none;
+            cursor: pointer;
+        }
+        
+        .action-card:hover {
+            transform: translateY(-5px);
+        }
+        
+        .action-icon {
+            font-size: 28px;
+            color: #FF8A65;
+            margin-bottom: 10px;
+        }
+        
+        .action-title {
+            font-weight: 600;
+            color: #8B7355;
+            font-size: 16px;
+        }
+        
+        .section-title {
+            font-size: 20px;
+            color: #8B7355;
+            font-weight: 600;
+            margin: 25px 0 15px;
+        }
+        
+        .dish-card {
+            background: #FFFBF7;
+            border-radius: 15px;
+            padding: 15px;
+            margin-bottom: 15px;
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.05);
+        }
+        
+        .dish-emoji {
+            width: 60px;
+            height: 60px;
+            border-radius: 12px;
+            background: linear-gradient(135deg, #FFB74D, #FF8A65);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 28px;
+            flex-shrink: 0;
+        }
+        
+        .dish-info {
+            flex-grow: 1;
+        }
+        
+        .dish-name {
+            font-weight: 600;
+            font-size: 16px;
+            color: #8B7355;
+            margin-bottom: 5px;
+        }
+        
+        .dish-details {
+            color: #A1887F;
+            font-size: 14px;
+            margin-bottom: 8px;
+        }
+        
+        .dish-price {
+            font-weight: 700;
+            color: #FF8A65;
+            font-size: 18px;
+        }
+        
+        .add-to-cart-btn {
+            background: linear-gradient(135deg, #FFB74D, #FF8A65);
+            color: white;
+            border: none;
+            padding: 8px 15px;
+            border-radius: 10px;
+            font-weight: 600;
+            cursor: pointer;
+        }
+        
+        /* ====== НИЖНЯЯ НАВИГАЦИЯ ====== */
+        .bottom-nav {
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            background: #FFFFFF;
+            display: flex;
+            justify-content: space-around;
+            padding: 15px 0;
+            box-shadow: 0 -2px 20px rgba(0,0,0,0.08);
+            z-index: 100;
+        }
+        
+        .nav-item {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            color: #A1887F;
+            font-size: 11px;
+            text-decoration: none;
+            opacity: 0.6;
+            transition: all 0.3s;
+        }
+        
+        .nav-item.active {
+            color: #FF8A65;
+            opacity: 1;
+        }
+        
+        .nav-icon {
+            font-size: 22px;
+            margin-bottom: 4px;
         }
         
         /* ====== АДАПТИВНОСТЬ ====== */
@@ -245,6 +465,10 @@
             .role-button .icon {
                 font-size: 30px;
             }
+            
+            .cabinet-content {
+                padding: 20px 15px;
+            }
         }
         
         @media (max-width: 400px) {
@@ -257,7 +481,7 @@
                 margin-top: 18px;
             }
             
-            .role-selection {
+            .role-selection-buttons {
                 gap: 20px;
             }
             
@@ -265,9 +489,12 @@
                 padding: 22px 20px;
                 font-size: 18px;
             }
+            
+            .quick-actions {
+                grid-template-columns: 1fr;
+            }
         }
         
-        /* ====== ТЕЛЕГРАМ ОПТИМИЗАЦИЯ ====== */
         .telegram-optimized {
             -webkit-font-smoothing: antialiased;
             -moz-osx-font-smoothing: grayscale;
@@ -279,30 +506,207 @@
     <div class="background-decor decor-1"></div>
     <div class="background-decor decor-2"></div>
     
-    <div class="app-container">
-        <!-- Логотип и название -->
-        <div class="logo-container">
-            <div class="logo-text">I-Chef</div>
-            <div class="logo-subtitle">Домашняя еда рядом</div>
-        </div>
-        
-        <!-- Кнопки выбора роли -->
-        <div class="role-selection">
-            <button class="role-button" onclick="selectRole('chef')">
-                <span class="icon">👨‍🍳</span>
-                <span>Я повар</span>
-            </button>
+    <!-- ====== СТРАНИЦА ВЫБОРА РОЛИ (ВАШ ДИЗАЙН) ====== -->
+    <div class="page active" id="role-selection-page">
+        <div class="role-selection-container">
+            <div class="logo-container">
+                <div class="logo-text">I-Chef</div>
+                <div class="logo-subtitle">Домашняя еда рядом</div>
+            </div>
             
-            <button class="role-button" onclick="selectRole('customer')">
-                <span class="icon">🍽️</span>
-                <span>Я клиент</span>
+            <div class="role-selection-buttons">
+                <button class="role-button" onclick="selectRole('chef')">
+                    <span class="icon">👨‍🍳</span>
+                    <span>Я повар</span>
+                </button>
+                
+                <button class="role-button" onclick="selectRole('customer')">
+                    <span class="icon">🍽️</span>
+                    <span>Я клиент</span>
+                </button>
+            </div>
+            
+            <div class="info-text">
+                Присоединяйтесь к сообществу домашней кухни.<br>
+                Готовьте с любовью или наслаждайтесь вкусом дома.
+            </div>
+        </div>
+    </div>
+    
+    <!-- ====== КАБИНЕТ КЛИЕНТА ====== -->
+    <div class="page" id="customer-page">
+        <!-- Header -->
+        <div class="cabinet-header">
+            <button class="back-button" onclick="goBackToRoleSelection()">
+                <i class="fas fa-arrow-left"></i>
+            </button>
+            <div class="header-title">Кабинет клиента</div>
+        </div>
+        
+        <!-- Основной контент -->
+        <div class="cabinet-content">
+            <!-- Карточка пользователя -->
+            <div class="user-card">
+                <div class="user-avatar" id="customer-avatar">
+                    <i class="fas fa-user"></i>
+                </div>
+                <div class="user-name" id="customer-name">Гость</div>
+                <div class="user-role">Клиент</div>
+            </div>
+            
+            <!-- Быстрые действия -->
+            <h3 class="section-title">Быстрые действия</h3>
+            <div class="quick-actions">
+                <button class="action-card" onclick="showAlert('Поиск еды в разработке')">
+                    <div class="action-icon">
+                        <i class="fas fa-search"></i>
+                    </div>
+                    <div class="action-title">Найти еду</div>
+                </button>
+                
+                <button class="action-card" onclick="showAlert('Мои заказы в разработке')">
+                    <div class="action-icon">
+                        <i class="fas fa-shopping-bag"></i>
+                    </div>
+                    <div class="action-title">Мои заказы</div>
+                </button>
+                
+                <button class="action-card" onclick="showAlert('Избранное в разработке')">
+                    <div class="action-icon">
+                        <i class="fas fa-heart"></i>
+                    </div>
+                    <div class="action-title">Избранное</div>
+                </button>
+                
+                <button class="action-card" onclick="showAlert('Адреса в разработке')">
+                    <div class="action-icon">
+                        <i class="fas fa-map-marker-alt"></i>
+                    </div>
+                    <div class="action-title">Адреса</div>
+                </button>
+            </div>
+            
+            <!-- Рекомендуемые блюда -->
+            <h3 class="section-title">Попробуйте сегодня</h3>
+            <div id="recommended-dishes">
+                <!-- Блюда загружаются через JS -->
+            </div>
+            
+            <!-- Кнопка поиска -->
+            <button class="role-button" onclick="showAlert('Поиск поваров в разработке')" style="width: 100%; margin-top: 20px;">
+                <i class="fas fa-search"></i> Найти поваров рядом
             </button>
         </div>
         
-        <!-- Информационный текст -->
-        <div class="info-text">
-            Присоединяйтесь к сообществу домашней кухни.<br>
-            Готовьте с любовью или наслаждайтесь вкусом дома.
+        <!-- Нижняя навигация -->
+        <div class="bottom-nav">
+            <a href="#" class="nav-item active">
+                <i class="fas fa-home nav-icon"></i>
+                <span>Главная</span>
+            </a>
+            <a href="#" class="nav-item" onclick="showAlert('Поиск в разработке')">
+                <i class="fas fa-search nav-icon"></i>
+                <span>Поиск</span>
+            </a>
+            <a href="#" class="nav-item" onclick="showAlert('Корзина в разработке')">
+                <i class="fas fa-shopping-cart nav-icon"></i>
+                <span>Корзина</span>
+                <span id="cart-count">0</span>
+            </a>
+            <a href="#" class="nav-item" onclick="showAlert('Профиль в разработке')">
+                <i class="fas fa-user nav-icon"></i>
+                <span>Профиль</span>
+            </a>
+        </div>
+    </div>
+    
+    <!-- ====== КАБИНЕТ ПОВАРА ====== -->
+    <div class="page" id="chef-page">
+        <!-- Header -->
+        <div class="cabinet-header">
+            <button class="back-button" onclick="goBackToRoleSelection()">
+                <i class="fas fa-arrow-left"></i>
+            </button>
+            <div class="header-title">Кабинет повара</div>
+        </div>
+        
+        <!-- Основной контент -->
+        <div class="cabinet-content">
+            <!-- Карточка повара -->
+            <div class="user-card">
+                <div class="user-avatar" id="chef-avatar">
+                    <i class="fas fa-utensils"></i>
+                </div>
+                <div class="user-name" id="chef-name">Повар</div>
+                <div class="user-role">Ваш рейтинг: ★★★★★ 4.8</div>
+            </div>
+            
+            <!-- Быстрые действия -->
+            <h3 class="section-title">Управление</h3>
+            <div class="quick-actions">
+                <button class="action-card" onclick="showAlert('Меню в разработке')">
+                    <div class="action-icon">
+                        <i class="fas fa-book"></i>
+                    </div>
+                    <div class="action-title">Моё меню</div>
+                </button>
+                
+                <button class="action-card" onclick="showAlert('Заказы в разработке')">
+                    <div class="action-icon">
+                        <i class="fas fa-clipboard-list"></i>
+                    </div>
+                    <div class="action-title">Мои заказы</div>
+                </button>
+                
+                <button class="action-card" onclick="showAlert('Статистика в разработке')">
+                    <div class="action-icon">
+                        <i class="fas fa-chart-line"></i>
+                    </div>
+                    <div class="action-title">Статистика</div>
+                </button>
+                
+                <button class="action-card" onclick="showAlert('Настройки в разработке')">
+                    <div class="action-icon">
+                        <i class="fas fa-cog"></i>
+                    </div>
+                    <div class="action-title">Настройки</div>
+                </button>
+            </div>
+            
+            <!-- Активные заказы -->
+            <h3 class="section-title">Активные заказы</h3>
+            <div id="active-orders">
+                <div class="dish-card" style="justify-content: center; text-align: center;">
+                    <div style="color: #A1887F; padding: 20px;">
+                        Пока нет активных заказов
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Кнопка добавления блюда -->
+            <button class="role-button" onclick="showAlert('Добавление блюда в разработке')" style="width: 100%; margin-top: 20px;">
+                <i class="fas fa-plus"></i> Добавить новое блюдо
+            </button>
+        </div>
+        
+        <!-- Нижняя навигация -->
+        <div class="bottom-nav">
+            <a href="#" class="nav-item active">
+                <i class="fas fa-home nav-icon"></i>
+                <span>Главная</span>
+            </a>
+            <a href="#" class="nav-item" onclick="showAlert('Заказы в разработке')">
+                <i class="fas fa-clipboard-list nav-icon"></i>
+                <span>Заказы</span>
+            </a>
+            <a href="#" class="nav-item" onclick="showAlert('Меню в разработке')">
+                <i class="fas fa-book nav-icon"></i>
+                <span>Меню</span>
+            </a>
+            <a href="#" class="nav-item" onclick="showAlert('Профиль в разработке')">
+                <i class="fas fa-user nav-icon"></i>
+                <span>Профиль</span>
+            </a>
         </div>
     </div>
 
@@ -312,92 +716,151 @@
         
         // Раскрываем на весь экран
         tg.expand();
-        
-        // Включаем плавные анимации
         tg.enableClosingConfirmation();
         tg.ready();
         
-        // Получаем информацию о пользователе
-        const user = tg.initDataUnsafe.user;
-        console.log('Пользователь Telegram:', user);
+        // Получаем пользователя
+        let currentUser = null;
+        if (tg.initDataUnsafe.user) {
+            currentUser = {
+                id: tg.initDataUnsafe.user.id,
+                firstName: tg.initDataUnsafe.user.first_name || 'Гость',
+                username: tg.initDataUnsafe.user.username
+            };
+            
+            // Обновляем имена
+            document.getElementById('customer-name').textContent = currentUser.firstName;
+            document.getElementById('chef-name').textContent = currentUser.firstName;
+            
+            // Обновляем аватар с первой буквой имени
+            const firstLetter = currentUser.firstName.charAt(0).toUpperCase();
+            document.getElementById('customer-avatar').innerHTML = firstLetter;
+            document.getElementById('chef-avatar').innerHTML = firstLetter;
+        }
         
-        // ====== ВЫБОР РОЛИ ======
+        // ====== НАВИГАЦИЯ ======
         function selectRole(role) {
-            // Виброотклик (если поддерживается)
+            // Виброотклик
             if (tg.HapticFeedback) {
                 tg.HapticFeedback.impactOccurred('light');
             }
             
-            // Сохраняем выбор пользователя
+            // Сохраняем роль
             localStorage.setItem('user_role', role);
             
-            // Показываем уведомление
-            const roleName = role === 'chef' ? '👨‍🍳 Повар' : '🍽️ Клиент';
-            tg.showAlert(`Вы выбрали: ${roleName}`);
+            // Показываем соответствующую страницу
+            if (role === 'customer') {
+                showPage('customer-page');
+                tg.showAlert(`Добро пожаловать, ${currentUser?.firstName || 'Клиент'}! 🍽️`);
+                loadRecommendedDishes();
+            } else {
+                showPage('chef-page');
+                tg.showAlert(`Рады видеть вас, шеф ${currentUser?.firstName || 'Повар'}! 👨‍🍳`);
+            }
             
-            // Переходим на соответствующую страницу
-            setTimeout(() => {
-                if (role === 'chef') {
-                    // Показываем кабинет повара
-                    showChefRegistration();
-                } else {
-                    // Показываем кабинет клиента
-                    showCustomerApp();
+            // Показываем кнопку "Назад" в Telegram
+            tg.BackButton.show();
+            tg.BackButton.onClick(goBackToRoleSelection);
+        }
+        
+        function showPage(pageId) {
+            // Скрываем все страницы
+            document.querySelectorAll('.page').forEach(page => {
+                page.classList.remove('active');
+            });
+            
+            // Показываем выбранную страницу
+            document.getElementById(pageId).classList.add('active');
+            
+            // Прокручиваем вверх
+            window.scrollTo(0, 0);
+        }
+        
+        function goBackToRoleSelection() {
+            showPage('role-selection-page');
+            tg.BackButton.hide();
+        }
+        
+        // ====== ЗАГРУЗКА ДАННЫХ ======
+        function loadRecommendedDishes() {
+            const dishesContainer = document.getElementById('recommended-dishes');
+            
+            // Демо-данные в вашем стиле
+            const dishes = [
+                {
+                    id: 1,
+                    name: "Паста Карбонара",
+                    chef: "Анна ★4.8",
+                    price: 450,
+                    emoji: "🍝",
+                    prepTime: "25 мин"
+                },
+                {
+                    id: 2,
+                    name: "Домашние пельмени",
+                    chef: "Мария ★4.9",
+                    price: 380,
+                    emoji: "🥟",
+                    prepTime: "30 мин"
+                },
+                {
+                    id: 3,
+                    name: "Греческий салат",
+                    chef: "Ольга ★4.7",
+                    price: 320,
+                    emoji: "🥗",
+                    prepTime: "20 мин"
                 }
-            }, 500);
-        }
-        
-        // ====== ФУНКЦИИ ПЕРЕХОДА ======
-        function showChefRegistration() {
-            document.body.innerHTML = `
-                <div style="padding: 40px 20px; text-align: center;">
-                    <h1 style="color: #795548; margin-bottom: 30px;">Регистрация повара</h1>
-                    <p>Скоро здесь будет форма регистрации...</p>
-                    <button onclick="goBack()" style="margin-top: 30px; padding: 15px 30px; background: #FFB74D; color: white; border: none; border-radius: 15px; font-size: 16px;">
-                        ← Назад
-                    </button>
-                </div>
-            `;
-        }
-        
-        function showCustomerApp() {
-            document.body.innerHTML = `
-                <div style="padding: 40px 20px; text-align: center;">
-                    <h1 style="color: #795548; margin-bottom: 30px;">Кабинет клиента</h1>
-                    <p>Скоро здесь будет поиск поваров и блюд...</p>
-                    <button onclick="goBack()" style="margin-top: 30px; padding: 15px 30px; background: #FFB74D; color: white; border: none; border-radius: 15px; font-size: 16px;">
-                        ← Назад
-                    </button>
-                </div>
-            `;
-        }
-        
-        function goBack() {
-            // Перезагружаем страницу для возврата к выбору роли
-            window.location.reload();
-        }
-        
-        // ====== КНОПКА НАЗАД В ТЕЛЕГРАМ ======
-        tg.BackButton.show();
-        tg.BackButton.onClick(() => {
-            tg.close();
-        });
-        
-        // ====== ПРИВЕТСТВИЕ ПОЛЬЗОВАТЕЛЯ ======
-        if (user && user.first_name) {
-            setTimeout(() => {
-                tg.showAlert(`Привет, ${user.first_name}! 👋 Добро пожаловать в I-Chef!`);
-            }, 1000);
-        }
-        
-        // ====== АНИМАЦИЯ ЗАГРУЗКИ ======
-        window.addEventListener('load', () => {
-            document.body.style.opacity = '0';
-            document.body.style.transition = 'opacity 0.5s ease';
+            ];
             
-            setTimeout(() => {
-                document.body.style.opacity = '1';
-            }, 100);
+            // Генерируем HTML для блюд
+            dishesContainer.innerHTML = dishes.map(dish => `
+                <div class="dish-card">
+                    <div class="dish-emoji">
+                        ${dish.emoji}
+                    </div>
+                    <div class="dish-info">
+                        <div class="dish-name">${dish.name}</div>
+                        <div class="dish-details">${dish.chef} • ${dish.prepTime}</div>
+                        <div style="display: flex; justify-content: space-between; align-items: center;">
+                            <div class="dish-price">${dish.price}₽</div>
+                            <button class="add-to-cart-btn" onclick="addToCart(${dish.id})">
+                                + В корзину
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            `).join('');
+        }
+        
+        // ====== КОРЗИНА ======
+        let cartItems = 0;
+        
+        function addToCart(dishId) {
+            cartItems++;
+            
+            // Обновляем счетчик
+            document.getElementById('cart-count').textContent = cartItems;
+            
+            // Виброотклик
+            if (tg.HapticFeedback) {
+                tg.HapticFeedback.impactOccurred('light');
+            }
+            
+            tg.showAlert('Добавлено в корзину! 🛒');
+        }
+        
+        // ====== ВСПОМОГАТЕЛЬНЫЕ ФУНКЦИИ ======
+        function showAlert(message) {
+            tg.showAlert(message);
+            if (tg.HapticFeedback) {
+                tg.HapticFeedback.impactOccurred('light');
+            }
+        }
+        
+        // Загружаем блюда при загрузке
+        window.addEventListener('load', () => {
+            loadRecommendedDishes();
         });
     </script>
 </body>
