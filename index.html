@@ -1,61 +1,407 @@
 <!DOCTYPE html>
-<html>
+<html lang="ru">
 <head>
     <meta charset="UTF-8">
-    <title>🍳 I-Chef</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>🍳 I-Chef — Домашняя еда рядом</title>
     <script src="https://telegram.org/js/telegram-web-app.js"></script>
+    
+    <!-- Подключаем красивый шрифт -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Pacifico&family=Montserrat:wght@400;500;600;700&display=swap" rel="stylesheet">
+    
     <style>
-        body {
+        /* ====== ОСНОВНЫЕ СТИЛИ ====== */
+        * {
             margin: 0;
-            padding: 20px;
-            font-family: Arial;
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            color: white;
-            text-align: center;
+            padding: 0;
+            box-sizing: border-box;
+            -webkit-tap-highlight-color: transparent;
+        }
+        
+        body {
+            font-family: 'Montserrat', -apple-system, BlinkMacSystemFont, sans-serif;
+            background: #FFFFFF; /* Белый фон */
+            color: #333333;
             min-height: 100vh;
-        }
-        .container {
-            max-width: 600px;
-            margin: 0 auto;
-            padding-top: 50px;
-        }
-        h1 { font-size: 3em; margin-bottom: 10px; }
-        .buttons { margin-top: 40px; }
-        button {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
             padding: 20px;
-            margin: 10px;
-            border: none;
-            border-radius: 15px;
-            font-size: 18px;
-            font-weight: bold;
-            cursor: pointer;
-            width: 80%;
+            position: relative;
+            overflow-x: hidden;
         }
-        .chef { background: #ff9966; color: white; }
-        .customer { background: #36d1dc; color: white; }
+        
+        /* ====== ДЕКОРАТИВНЫЕ ЭЛЕМЕНТЫ ====== */
+        .background-decor {
+            position: absolute;
+            z-index: -1;
+            opacity: 0.05;
+        }
+        
+        .decor-1 {
+            top: 10%;
+            left: 5%;
+            width: 150px;
+            height: 150px;
+            background: radial-gradient(circle, #FFA726 0%, transparent 70%);
+            border-radius: 50%;
+        }
+        
+        .decor-2 {
+            bottom: 15%;
+            right: 5%;
+            width: 200px;
+            height: 200px;
+            background: radial-gradient(circle, #FF8A65 0%, transparent 70%);
+            border-radius: 50%;
+        }
+        
+        /* ====== КОНТЕЙНЕР ====== */
+        .app-container {
+            max-width: 500px;
+            width: 100%;
+            text-align: center;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            padding: 40px 20px;
+        }
+        
+        /* ====== ЛОГОТИП ====== */
+        .logo-container {
+            margin-bottom: 60px;
+            animation: float 3s ease-in-out infinite;
+        }
+        
+        @keyframes float {
+            0%, 100% { transform: translateY(0px); }
+            50% { transform: translateY(-10px); }
+        }
+        
+        .logo-icon {
+            font-size: 80px;
+            margin-bottom: 15px;
+            display: block;
+        }
+        
+        .logo-text {
+            font-family: 'Pacifico', cursive;
+            font-size: 64px;
+            background: linear-gradient(135deg, #D7CCC8 0%, #A1887F 100%); /* Бежевый градиент */
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            text-fill-color: transparent;
+            line-height: 1;
+            margin-bottom: 10px;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.1);
+        }
+        
+        .logo-subtitle {
+            font-size: 18px;
+            color: #795548;
+            font-weight: 500;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            margin-top: -5px;
+        }
+        
+        /* ====== КНОПКИ ВЫБОРА РОЛИ ====== */
+        .role-selection {
+            display: flex;
+            flex-direction: column;
+            gap: 25px;
+            width: 100%;
+            max-width: 320px;
+            margin-top: 40px;
+        }
+        
+        .role-button {
+            position: relative;
+            padding: 24px 30px;
+            border: none;
+            border-radius: 25px;
+            font-size: 22px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 15px;
+            color: white;
+            overflow: hidden;
+            box-shadow: 0 8px 25px rgba(255, 152, 0, 0.2);
+        }
+        
+        /* Мягкий оранжевый градиент */
+        .role-button::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: linear-gradient(135deg, #FFB74D 0%, #FF8A65 100%);
+            z-index: 1;
+            transition: all 0.3s ease;
+        }
+        
+        .role-button:hover::before {
+            transform: scale(1.05);
+            background: linear-gradient(135deg, #FFA726 0%, #FF7043 100%);
+        }
+        
+        .role-button span {
+            position: relative;
+            z-index: 2;
+        }
+        
+        .role-button .icon {
+            font-size: 32px;
+            position: relative;
+            z-index: 2;
+            transition: transform 0.3s ease;
+        }
+        
+        .role-button:hover .icon {
+            transform: scale(1.1) rotate(5deg);
+        }
+        
+        /* Эффект нажатия */
+        .role-button:active {
+            transform: scale(0.98);
+            box-shadow: 0 4px 15px rgba(255, 152, 0, 0.3);
+        }
+        
+        /* Анимация появления кнопок */
+        .role-button:nth-child(1) {
+            animation: slideUp 0.6s ease-out 0.2s both;
+        }
+        
+        .role-button:nth-child(2) {
+            animation: slideUp 0.6s ease-out 0.4s both;
+        }
+        
+        @keyframes slideUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        
+        /* ====== ДОПОЛНИТЕЛЬНАЯ ИНФОРМАЦИЯ ====== */
+        .info-text {
+            margin-top: 40px;
+            color: #795548;
+            font-size: 16px;
+            line-height: 1.6;
+            max-width: 320px;
+            opacity: 0.8;
+            animation: fadeIn 1s ease-out 0.8s both;
+        }
+        
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 0.8; }
+        }
+        
+        /* ====== FOOTER ====== */
+        .app-footer {
+            position: absolute;
+            bottom: 20px;
+            left: 0;
+            right: 0;
+            text-align: center;
+            color: #A1887F;
+            font-size: 14px;
+            opacity: 0.6;
+        }
+        
+        /* ====== АДАПТИВНОСТЬ ДЛЯ РАЗНЫХ УСТРОЙСТВ ====== */
+        @media (max-width: 600px) {
+            .logo-text {
+                font-size: 54px;
+            }
+            
+            .logo-icon {
+                font-size: 70px;
+            }
+            
+            .role-button {
+                padding: 22px 25px;
+                font-size: 20px;
+            }
+            
+            .role-button .icon {
+                font-size: 28px;
+            }
+        }
+        
+        @media (max-width: 400px) {
+            .logo-text {
+                font-size: 48px;
+            }
+            
+            .logo-icon {
+                font-size: 60px;
+            }
+            
+            .role-selection {
+                gap: 20px;
+            }
+            
+            .role-button {
+                padding: 20px;
+                font-size: 18px;
+            }
+        }
+        
+        /* ====== ТЕЛЕГРАМ ОПТИМИЗАЦИЯ ====== */
+        .telegram-optimized {
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
+        }
     </style>
 </head>
-<body>
-    <div class="container">
-        <h1>🍳 I-CHEF</h1>
-        <p>Заказ домашней еды у проверенных поваров</p>
-        
-        <div class="buttons">
-            <button class="chef" onclick="selectRole('chef')">👨‍🍳 Я ПОВАР</button>
-            <button class="customer" onclick="selectRole('customer')">🍽️ Я КЛИЕНТ</button>
+<body class="telegram-optimized">
+    <!-- Декоративные элементы фона -->
+    <div class="background-decor decor-1"></div>
+    <div class="background-decor decor-2"></div>
+    
+    <div class="app-container">
+        <!-- Логотип и название -->
+        <div class="logo-container">
+            <div class="logo-icon">🍳</div>
+            <div class="logo-text">I-Chef</div>
+            <div class="logo-subtitle">Домашняя еда рядом</div>
         </div>
+        
+        <!-- Кнопки выбора роли -->
+        <div class="role-selection">
+            <button class="role-button" onclick="selectRole('chef')">
+                <span class="icon">👨‍🍳</span>
+                <span>Я повар</span>
+            </button>
+            
+            <button class="role-button" onclick="selectRole('customer')">
+                <span class="icon">🍽️</span>
+                <span>Я клиент</span>
+            </button>
+        </div>
+        
+        <!-- Информационный текст -->
+        <div class="info-text">
+            Присоединяйтесь к сообществу домашней кухни.<br>
+            Готовьте с любовью или наслаждайтесь вкусом дома.
+        </div>
+    </div>
+    
+    <!-- Футер -->
+    <div class="app-footer">
+        I-Chef © 2024
     </div>
 
     <script>
-        // Telegram Web App
+        // ====== ИНИЦИАЛИЗАЦИЯ ТЕЛЕГРАМ ======
         const tg = window.Telegram.WebApp;
-        tg.expand();
-        tg.BackButton.hide();
         
+        // Раскрываем на весь экран
+        tg.expand();
+        
+        // Включаем плавные анимации
+        tg.enableClosingConfirmation();
+        tg.ready();
+        
+        // Получаем информацию о пользователе
+        const user = tg.initDataUnsafe.user;
+        console.log('Пользователь Telegram:', user);
+        
+        // ====== ВЫБОР РОЛИ ======
         function selectRole(role) {
-            tg.sendData(JSON.stringify({role: role}));
-            tg.showAlert(`Вы выбрали: ${role === 'chef' ? 'повар' : 'клиент'}`);
+            // Виброотклик (если поддерживается)
+            if (tg.HapticFeedback) {
+                tg.HapticFeedback.impactOccurred('light');
+            }
+            
+            // Сохраняем выбор пользователя
+            localStorage.setItem('user_role', role);
+            
+            // Показываем уведомление
+            const roleName = role === 'chef' ? '👨‍🍳 Повар' : '🍽️ Клиент';
+            tg.showAlert(`Вы выбрали: ${roleName}`);
+            
+            // Переходим на соответствующую страницу
+            setTimeout(() => {
+                if (role === 'chef') {
+                    // Показываем кабинет повара
+                    showChefRegistration();
+                } else {
+                    // Показываем кабинет клиента
+                    showCustomerApp();
+                }
+            }, 500);
         }
+        
+        // ====== ФУНКЦИИ ПЕРЕХОДА ======
+        function showChefRegistration() {
+            document.body.innerHTML = `
+                <div style="padding: 40px 20px; text-align: center;">
+                    <h1 style="color: #795548; margin-bottom: 30px;">Регистрация повара</h1>
+                    <p>Скоро здесь будет форма регистрации...</p>
+                    <button onclick="goBack()" style="margin-top: 30px; padding: 15px 30px; background: #FFB74D; color: white; border: none; border-radius: 15px; font-size: 16px;">
+                        ← Назад
+                    </button>
+                </div>
+            `;
+        }
+        
+        function showCustomerApp() {
+            document.body.innerHTML = `
+                <div style="padding: 40px 20px; text-align: center;">
+                    <h1 style="color: #795548; margin-bottom: 30px;">Кабинет клиента</h1>
+                    <p>Скоро здесь будет поиск поваров и блюд...</p>
+                    <button onclick="goBack()" style="margin-top: 30px; padding: 15px 30px; background: #FFB74D; color: white; border: none; border-radius: 15px; font-size: 16px;">
+                        ← Назад
+                    </button>
+                </div>
+            `;
+        }
+        
+        function goBack() {
+            // Перезагружаем страницу для возврата к выбору роли
+            window.location.reload();
+        }
+        
+        // ====== КНОПКА НАЗАД В ТЕЛЕГРАМ ======
+        tg.BackButton.show();
+        tg.BackButton.onClick(() => {
+            tg.close();
+        });
+        
+        // ====== ПРИВЕТСТВИЕ ПОЛЬЗОВАТЕЛЯ ======
+        if (user && user.first_name) {
+            setTimeout(() => {
+                tg.showAlert(`Привет, ${user.first_name}! 👋 Добро пожаловать в I-Chef!`);
+            }, 1000);
+        }
+        
+        // ====== АНИМАЦИЯ ЗАГРУЗКИ ======
+        window.addEventListener('load', () => {
+            document.body.style.opacity = '0';
+            document.body.style.transition = 'opacity 0.5s ease';
+            
+            setTimeout(() => {
+                document.body.style.opacity = '1';
+            }, 100);
+        });
     </script>
 </body>
 </html>
