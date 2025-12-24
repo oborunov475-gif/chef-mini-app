@@ -5,15 +5,15 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <title>I-Chef — Домашняя еда рядом</title>
     <script src="https://telegram.org/js/telegram-web-app.js"></script>
-    
+
     <!-- Красивый шрифт с засечками -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;800;900&family=Montserrat:wght@400;500;600&display=swap" rel="stylesheet">
-    
+
     <!-- Иконки для кабинетов -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    
+
     <style>
         /* ====== ОСНОВНЫЕ СТИЛИ (ВАШ ДИЗАЙН) ====== */
         * {
@@ -22,7 +22,7 @@
             box-sizing: border-box;
             -webkit-tap-highlight-color: transparent;
         }
-        
+
         body {
             font-family: 'Montserrat', -apple-system, BlinkMacSystemFont, sans-serif;
             background: #FFFFFF;
@@ -31,26 +31,26 @@
             position: relative;
             overflow-x: hidden;
         }
-        
+
         /* ====== СКРЫТЫЕ СТРАНИЦЫ ====== */
         .page {
             display: none;
             opacity: 0;
             transition: opacity 0.3s ease;
         }
-        
+
         .page.active {
             display: block;
             opacity: 1;
         }
-        
+
         /* ====== ДЕКОРАТИВНЫЕ ЭЛЕМЕНТЫ ФОНА ====== */
         .background-decor {
             position: absolute;
             z-index: -1;
             opacity: 0.03;
         }
-        
+
         .decor-1 {
             top: 10%;
             left: 5%;
@@ -59,7 +59,7 @@
             background: radial-gradient(circle, #FFB74D 0%, transparent 70%);
             border-radius: 50%;
         }
-        
+
         .decor-2 {
             bottom: 15%;
             right: 5%;
@@ -68,7 +68,7 @@
             background: radial-gradient(circle, #FF8A65 0%, transparent 70%);
             border-radius: 50%;
         }
-        
+
         /* ====== СТРАНИЦА ВЫБОРА РОЛИ (ВАШ ДИЗАЙН) ====== */
         .role-selection-container {
             max-width: 500px;
@@ -82,12 +82,12 @@
             min-height: 100vh;
             justify-content: center;
         }
-        
+
         .logo-container {
-            margin-bottom: 70px;
+            margin-bottom: 50px;
             animation: fadeInDown 1s ease-out;
         }
-        
+
         @keyframes fadeInDown {
             from {
                 opacity: 0;
@@ -98,7 +98,7 @@
                 transform: translateY(0);
             }
         }
-        
+
         .logo-text {
             font-family: 'Playfair Display', serif;
             font-size: 72px;
@@ -110,7 +110,7 @@
             text-shadow: 3px 3px 6px rgba(0,0,0,0.08);
             position: relative;
         }
-        
+
         .logo-text::after {
             content: '';
             position: absolute;
@@ -121,7 +121,7 @@
             height: 3px;
             background: linear-gradient(90deg, transparent, #FFB74D, transparent);
         }
-        
+
         .logo-subtitle {
             font-size: 18px;
             color: #A1887F;
@@ -132,12 +132,12 @@
             opacity: 0.9;
             animation: fadeIn 1s ease-out 0.3s both;
         }
-        
+
         @keyframes fadeIn {
             from { opacity: 0; }
             to { opacity: 0.9; }
         }
-        
+
         /* ====== КНОПКИ ВЫБОРА РОЛИ (ВАШ ДИЗАЙН) ====== */
         .role-selection-buttons {
             display: flex;
@@ -147,7 +147,7 @@
             max-width: 320px;
             margin-top: 20px;
         }
-        
+
         .role-button {
             position: relative;
             padding: 26px 30px;
@@ -165,7 +165,7 @@
             overflow: hidden;
             box-shadow: 0 10px 30px rgba(255, 152, 0, 0.15);
         }
-        
+
         .role-button::before {
             content: '';
             position: absolute;
@@ -177,41 +177,45 @@
             z-index: 1;
             transition: all 0.3s ease;
         }
-        
+
         .role-button:hover::before {
             transform: scale(1.05);
             background: linear-gradient(135deg, #FFA726 0%, #FF7043 100%);
         }
-        
+
         .role-button span {
             position: relative;
             z-index: 2;
         }
-        
+
         .role-button .icon {
             font-size: 34px;
             position: relative;
             z-index: 2;
             transition: transform 0.3s ease;
         }
-        
+
         .role-button:hover .icon {
             transform: scale(1.15) rotate(5deg);
         }
-        
+
         .role-button:active {
             transform: scale(0.98);
             box-shadow: 0 5px 20px rgba(255, 152, 0, 0.2);
         }
-        
+
         .role-button:nth-child(1) {
             animation: slideUp 0.6s ease-out 0.4s both;
         }
-        
+
         .role-button:nth-child(2) {
             animation: slideUp 0.6s ease-out 0.6s both;
         }
-        
+
+        .role-button:nth-child(3) {
+            animation: slideUp 0.6s ease-out 0.8s both;
+        }
+
         @keyframes slideUp {
             from {
                 opacity: 0;
@@ -222,7 +226,7 @@
                 transform: translateY(0);
             }
         }
-        
+
         .info-text {
             margin-top: 40px;
             color: #795548;
@@ -230,9 +234,9 @@
             line-height: 1.6;
             max-width: 320px;
             opacity: 0.8;
-            animation: fadeIn 1s ease-out 0.8s both;
+            animation: fadeIn 1s ease-out 1s both;
         }
-        
+
         /* ====== СТИЛИ ДЛЯ КАБИНЕТОВ ====== */
         .cabinet-header {
             background: #FFFFFF;
@@ -245,7 +249,7 @@
             align-items: center;
             gap: 15px;
         }
-        
+
         .back-button {
             background: none;
             border: none;
@@ -261,25 +265,25 @@
             border-radius: 50%;
             transition: background 0.3s;
         }
-        
+
         .back-button:hover {
             background: rgba(255, 138, 101, 0.1);
         }
-        
+
         .header-title {
             font-size: 22px;
             font-weight: 600;
             color: #8B7355;
             flex-grow: 1;
         }
-        
+
         .cabinet-content {
             padding: 25px 20px;
             max-width: 600px;
             margin: 0 auto;
             padding-bottom: 90px;
         }
-        
+
         .user-card {
             background: #FFFBF7;
             border-radius: 20px;
@@ -288,7 +292,7 @@
             margin-bottom: 25px;
             box-shadow: 0 4px 20px rgba(0,0,0,0.08);
         }
-        
+
         .user-avatar {
             width: 80px;
             height: 80px;
@@ -301,26 +305,26 @@
             font-size: 32px;
             margin: 0 auto 15px;
         }
-        
+
         .user-name {
             font-size: 22px;
             font-weight: 600;
             color: #8B7355;
             margin-bottom: 5px;
         }
-        
+
         .user-role {
             color: #A1887F;
             font-size: 16px;
         }
-        
+
         .quick-actions {
             display: grid;
             grid-template-columns: repeat(2, 1fr);
             gap: 15px;
             margin-bottom: 30px;
         }
-        
+
         .action-card {
             background: #FFFBF7;
             border-radius: 15px;
@@ -331,30 +335,31 @@
             border: none;
             cursor: pointer;
         }
-        
+
         .action-card:hover {
             transform: translateY(-5px);
         }
-        
+
         .action-icon {
             font-size: 28px;
             color: #FF8A65;
             margin-bottom: 10px;
         }
-        
+
         .action-title {
             font-weight: 600;
             color: #8B7355;
             font-size: 16px;
         }
-        
+
         .section-title {
             font-size: 20px;
             color: #8B7355;
             font-weight: 600;
             margin: 25px 0 15px;
         }
-        
+
+        /* ====== СТИЛИ ДЛЯ КАБИНЕТА КЛИЕНТА ====== */
         .dish-card {
             background: #FFFBF7;
             border-radius: 15px;
@@ -365,7 +370,7 @@
             gap: 15px;
             box-shadow: 0 4px 15px rgba(0,0,0,0.05);
         }
-        
+
         .dish-emoji {
             width: 60px;
             height: 60px;
@@ -377,30 +382,30 @@
             font-size: 28px;
             flex-shrink: 0;
         }
-        
+
         .dish-info {
             flex-grow: 1;
         }
-        
+
         .dish-name {
             font-weight: 600;
             font-size: 16px;
             color: #8B7355;
             margin-bottom: 5px;
         }
-        
+
         .dish-details {
             color: #A1887F;
             font-size: 14px;
             margin-bottom: 8px;
         }
-        
+
         .dish-price {
             font-weight: 700;
             color: #FF8A65;
             font-size: 18px;
         }
-        
+
         .add-to-cart-btn {
             background: linear-gradient(135deg, #FFB74D, #FF8A65);
             color: white;
@@ -410,7 +415,115 @@
             font-weight: 600;
             cursor: pointer;
         }
-        
+
+        /* ====== СТИЛИ ДЛЯ КАБИНЕТА КУРЬЕРА ====== */
+        .delivery-card {
+            background: #FFFBF7;
+            border-radius: 15px;
+            padding: 20px;
+            margin-bottom: 20px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.05);
+            border-left: 4px solid #4CAF50;
+        }
+
+        .delivery-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 15px;
+        }
+
+        .delivery-id {
+            font-weight: 600;
+            color: #4CAF50;
+            font-size: 18px;
+        }
+
+        .delivery-time {
+            background: #E8F5E9;
+            color: #2E7D32;
+            padding: 5px 12px;
+            border-radius: 20px;
+            font-size: 14px;
+            font-weight: 500;
+        }
+
+        .delivery-info {
+            margin-bottom: 15px;
+        }
+
+        .info-row {
+            display: flex;
+            margin-bottom: 8px;
+            align-items: flex-start;
+        }
+
+        .info-label {
+            width: 120px;
+            color: #A1887F;
+            font-size: 14px;
+        }
+
+        .info-value {
+            flex: 1;
+            font-weight: 500;
+            color: #8B7355;
+            font-size: 15px;
+        }
+
+        .delivery-actions {
+            display: flex;
+            gap: 10px;
+            margin-top: 20px;
+        }
+
+        .action-btn {
+            flex: 1;
+            padding: 12px;
+            border: none;
+            border-radius: 10px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+
+        .accept-btn {
+            background: linear-gradient(135deg, #4CAF50, #2E7D32);
+            color: white;
+        }
+
+        .reject-btn {
+            background: #F5F5F5;
+            color: #757575;
+        }
+
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 15px;
+            margin-bottom: 30px;
+        }
+
+        .stat-card {
+            background: #FFFBF7;
+            border-radius: 15px;
+            padding: 20px;
+            text-align: center;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.05);
+        }
+
+        .stat-value {
+            font-size: 32px;
+            font-weight: 700;
+            color: #4CAF50;
+            margin-bottom: 5px;
+        }
+
+        .stat-label {
+            color: #A1887F;
+            font-size: 14px;
+        }
+
         /* ====== НИЖНЯЯ НАВИГАЦИЯ ====== */
         .bottom-nav {
             position: fixed;
@@ -424,7 +537,7 @@
             box-shadow: 0 -2px 20px rgba(0,0,0,0.08);
             z-index: 100;
         }
-        
+
         .nav-item {
             display: flex;
             flex-direction: column;
@@ -434,67 +547,80 @@
             text-decoration: none;
             opacity: 0.6;
             transition: all 0.3s;
+            position: relative;
         }
-        
+
         .nav-item.active {
             color: #FF8A65;
             opacity: 1;
         }
-        
+
+        .nav-item.courier.active {
+            color: #4CAF50;
+        }
+
         .nav-icon {
             font-size: 22px;
             margin-bottom: 4px;
         }
-        
+
         /* ====== АДАПТИВНОСТЬ ====== */
         @media (max-width: 600px) {
             .logo-text {
                 font-size: 62px;
             }
-            
+
             .logo-subtitle {
                 font-size: 16px;
                 margin-top: 20px;
             }
-            
+
             .role-button {
                 padding: 24px 25px;
                 font-size: 20px;
             }
-            
+
             .role-button .icon {
                 font-size: 30px;
             }
-            
+
             .cabinet-content {
                 padding: 20px 15px;
             }
+
+            .quick-actions {
+                grid-template-columns: 1fr;
+            }
+
+            .delivery-actions {
+                flex-direction: column;
+            }
         }
-        
+
         @media (max-width: 400px) {
             .logo-text {
                 font-size: 54px;
             }
-            
+
             .logo-subtitle {
                 font-size: 15px;
                 margin-top: 18px;
             }
-            
+
             .role-selection-buttons {
                 gap: 20px;
             }
-            
+
             .role-button {
                 padding: 22px 20px;
                 font-size: 18px;
             }
-            
-            .quick-actions {
+
+            .stats-grid {
                 grid-template-columns: 1fr;
             }
         }
-        
+
         .telegram-optimized {
             -webkit-font-smoothing: antialiased;
             -moz-osx-font-smoothing: grayscale;
@@ -505,34 +631,40 @@
     <!-- Декоративные элементы фона -->
     <div class="background-decor decor-1"></div>
     <div class="background-decor decor-2"></div>
-    
-    <!-- ====== СТРАНИЦА ВЫБОРА РОЛИ (ВАШ ДИЗАЙН) ====== -->
+
+    <!-- ====== СТРАНИЦА ВЫБОРА РОЛИ ====== -->
     <div class="page active" id="role-selection-page">
         <div class="role-selection-container">
             <div class="logo-container">
                 <div class="logo-text">I-Chef</div>
                 <div class="logo-subtitle">Домашняя еда рядом</div>
             </div>
-            
+
             <div class="role-selection-buttons">
-                <button class="role-button" onclick="selectRole('chef')">
-                    <span class="icon">👨‍🍳</span>
-                    <span>Я повар</span>
-                </button>
-                
                 <button class="role-button" onclick="selectRole('customer')">
                     <span class="icon">🍽️</span>
                     <span>Я клиент</span>
                 </button>
+
+                <button class="role-button" onclick="selectRole('chef')">
+                    <span class="icon">👨‍🍳</span>
+                    <span>Я повар</span>
+                </button>
+
+                <button class="role-button" onclick="selectRole('courier')">
+                    <span class="icon">🚴</span>
+                    <span>Я курьер</span>
+                </button>
             </div>
-            
+
             <div class="info-text">
                 Присоединяйтесь к сообществу домашней кухни.<br>
-                Готовьте с любовью или наслаждайтесь вкусом дома.
+                Готовьте с любовью, наслаждайтесь вкусом дома<br>
+                или доставляйте заказы!
             </div>
         </div>
     </div>
-    
+
     <!-- ====== КАБИНЕТ КЛИЕНТА ====== -->
     <div class="page" id="customer-page">
         <!-- Header -->
@@ -542,7 +674,7 @@
             </button>
             <div class="header-title">Кабинет клиента</div>
         </div>
-        
+
         <!-- Основной контент -->
         <div class="cabinet-content">
             <!-- Карточка пользователя -->
@@ -553,7 +685,7 @@
                 <div class="user-name" id="customer-name">Гость</div>
                 <div class="user-role">Клиент</div>
             </div>
-            
+
             <!-- Быстрые действия -->
             <h3 class="section-title">Быстрые действия</h3>
             <div class="quick-actions">
@@ -563,21 +695,21 @@
                     </div>
                     <div class="action-title">Найти еду</div>
                 </button>
-                
+
                 <button class="action-card" onclick="showAlert('Мои заказы в разработке')">
                     <div class="action-icon">
                         <i class="fas fa-shopping-bag"></i>
                     </div>
                     <div class="action-title">Мои заказы</div>
                 </button>
-                
+
                 <button class="action-card" onclick="showAlert('Избранное в разработке')">
                     <div class="action-icon">
                         <i class="fas fa-heart"></i>
                     </div>
                     <div class="action-title">Избранное</div>
                 </button>
-                
+
                 <button class="action-card" onclick="showAlert('Адреса в разработке')">
                     <div class="action-icon">
                         <i class="fas fa-map-marker-alt"></i>
@@ -585,19 +717,19 @@
                     <div class="action-title">Адреса</div>
                 </button>
             </div>
-            
+
             <!-- Рекомендуемые блюда -->
             <h3 class="section-title">Попробуйте сегодня</h3>
             <div id="recommended-dishes">
                 <!-- Блюда загружаются через JS -->
             </div>
-            
+
             <!-- Кнопка поиска -->
             <button class="role-button" onclick="showAlert('Поиск поваров в разработке')" style="width: 100%; margin-top: 20px;">
                 <i class="fas fa-search"></i> Найти поваров рядом
             </button>
         </div>
-        
+
         <!-- Нижняя навигация -->
         <div class="bottom-nav">
             <a href="#" class="nav-item active">
@@ -619,7 +751,7 @@
             </a>
         </div>
     </div>
-    
+
     <!-- ====== КАБИНЕТ ПОВАРА ====== -->
     <div class="page" id="chef-page">
         <!-- Header -->
@@ -629,7 +761,7 @@
             </button>
             <div class="header-title">Кабинет повара</div>
         </div>
-        
+
         <!-- Основной контент -->
         <div class="cabinet-content">
             <!-- Карточка повара -->
@@ -640,7 +772,7 @@
                 <div class="user-name" id="chef-name">Повар</div>
                 <div class="user-role">Ваш рейтинг: ★★★★★ 4.8</div>
             </div>
-            
+
             <!-- Быстрые действия -->
             <h3 class="section-title">Управление</h3>
             <div class="quick-actions">
@@ -650,21 +782,21 @@
                     </div>
                     <div class="action-title">Моё меню</div>
                 </button>
-                
+
                 <button class="action-card" onclick="showAlert('Заказы в разработке')">
                     <div class="action-icon">
                         <i class="fas fa-clipboard-list"></i>
                     </div>
                     <div class="action-title">Мои заказы</div>
                 </button>
-                
+
                 <button class="action-card" onclick="showAlert('Статистика в разработке')">
                     <div class="action-icon">
                         <i class="fas fa-chart-line"></i>
                     </div>
                     <div class="action-title">Статистика</div>
                 </button>
-                
+
                 <button class="action-card" onclick="showAlert('Настройки в разработке')">
                     <div class="action-icon">
                         <i class="fas fa-cog"></i>
@@ -672,7 +804,7 @@
                     <div class="action-title">Настройки</div>
                 </button>
             </div>
-            
+
             <!-- Активные заказы -->
             <h3 class="section-title">Активные заказы</h3>
             <div id="active-orders">
@@ -682,13 +814,13 @@
                     </div>
                 </div>
             </div>
-            
+
             <!-- Кнопка добавления блюда -->
             <button class="role-button" onclick="showAlert('Добавление блюда в разработке')" style="width: 100%; margin-top: 20px;">
                 <i class="fas fa-plus"></i> Добавить новое блюдо
             </button>
         </div>
-        
+
         <!-- Нижняя навигация -->
         <div class="bottom-nav">
             <a href="#" class="nav-item active">
@@ -710,15 +842,128 @@
         </div>
     </div>
 
+    <!-- ====== КАБИНЕТ КУРЬЕРА ====== -->
+    <div class="page" id="courier-page">
+        <!-- Header -->
+        <div class="cabinet-header">
+            <button class="back-button" onclick="goBackToRoleSelection()">
+                <i class="fas fa-arrow-left"></i>
+            </button>
+            <div class="header-title">Кабинет курьера</div>
+        </div>
+
+        <!-- Основной контент -->
+        <div class="cabinet-content">
+            <!-- Карточка курьера -->
+            <div class="user-card">
+                <div class="user-avatar" id="courier-avatar">
+                    <i class="fas fa-motorcycle"></i>
+                </div>
+                <div class="user-name" id="courier-name">Курьер</div>
+                <div class="user-role">Рейтинг: ★★★★☆ 4.5 • Онлайн</div>
+            </div>
+
+            <!-- Статистика -->
+            <h3 class="section-title">Сегодняшняя статистика</h3>
+            <div class="stats-grid">
+                <div class="stat-card">
+                    <div class="stat-value">8</div>
+                    <div class="stat-label">Доставлено</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-value">2 850₽</div>
+                    <div class="stat-label">Заработок</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-value">4.9</div>
+                    <div class="stat-label">Рейтинг</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-value">38мин</div>
+                    <div class="stat-label">Среднее время</div>
+                </div>
+            </div>
+
+            <!-- Быстрые действия -->
+            <h3 class="section-title">Управление</h3>
+            <div class="quick-actions">
+                <button class="action-card" onclick="toggleCourierStatus()">
+                    <div class="action-icon">
+                        <i class="fas fa-power-off"></i>
+                    </div>
+                    <div class="action-title" id="status-text">Выйти онлайн</div>
+                </button>
+
+                <button class="action-card" onclick="showAlert('Карта в разработке')">
+                    <div class="action-icon">
+                        <i class="fas fa-map"></i>
+                    </div>
+                    <div class="action-title">Карта заказов</div>
+                </button>
+
+                <button class="action-card" onclick="showAlert('Финансы в разработке')">
+                    <div class="action-icon">
+                        <i class="fas fa-wallet"></i>
+                    </div>
+                    <div class="action-title">Финансы</div>
+                </button>
+
+                <button class="action-card" onclick="showAlert('Настройки в разработке')">
+                    <div class="action-icon">
+                        <i class="fas fa-cog"></i>
+                    </div>
+                    <div class="action-title">Настройки</div>
+                </button>
+            </div>
+
+            <!-- Доступные заказы -->
+            <h3 class="section-title">Доступные заказы</h3>
+            <div id="available-deliveries">
+                <!-- Заказы загружаются через JS -->
+            </div>
+
+            <!-- Активные доставки -->
+            <h3 class="section-title">Активная доставка</h3>
+            <div id="active-delivery">
+                <div class="dish-card" style="justify-content: center; text-align: center;">
+                    <div style="color: #A1887F; padding: 20px;">
+                        Нет активной доставки
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Нижняя навигация -->
+        <div class="bottom-nav">
+            <a href="#" class="nav-item courier active">
+                <i class="fas fa-home nav-icon"></i>
+                <span>Главная</span>
+            </a>
+            <a href="#" class="nav-item courier" onclick="showAlert('Заказы в разработке')">
+                <i class="fas fa-clipboard-list nav-icon"></i>
+                <span>Заказы</span>
+                <span id="orders-count" style="position: absolute; top: -5px; right: -5px; background: #4CAF50; color: white; border-radius: 50%; width: 18px; height: 18px; font-size: 10px; display: flex; align-items: center; justify-content: center;">3</span>
+            </a>
+            <a href="#" class="nav-item courier" onclick="showAlert('Карта в разработке')">
+                <i class="fas fa-map-marked-alt nav-icon"></i>
+                <span>Карта</span>
+            </a>
+            <a href="#" class="nav-item courier" onclick="showAlert('Профиль в разработке')">
+                <i class="fas fa-user nav-icon"></i>
+                <span>Профиль</span>
+            </a>
+        </div>
+    </div>
+
     <script>
         // ====== ИНИЦИАЛИЗАЦИЯ ТЕЛЕГРАМ ======
         const tg = window.Telegram.WebApp;
-        
+
         // Раскрываем на весь экран
         tg.expand();
         tg.enableClosingConfirmation();
         tg.ready();
-        
+
         // Получаем пользователя
         let currentUser = null;
         if (tg.initDataUnsafe.user) {
@@ -727,64 +972,70 @@
                 firstName: tg.initDataUnsafe.user.first_name || 'Гость',
                 username: tg.initDataUnsafe.user.username
             };
-            
+
             // Обновляем имена
             document.getElementById('customer-name').textContent = currentUser.firstName;
             document.getElementById('chef-name').textContent = currentUser.firstName;
-            
+            document.getElementById('courier-name').textContent = currentUser.firstName;
+
             // Обновляем аватар с первой буквой имени
             const firstLetter = currentUser.firstName.charAt(0).toUpperCase();
             document.getElementById('customer-avatar').innerHTML = firstLetter;
             document.getElementById('chef-avatar').innerHTML = firstLetter;
+            document.getElementById('courier-avatar').innerHTML = firstLetter;
         }
-        
+
         // ====== НАВИГАЦИЯ ======
         function selectRole(role) {
             // Виброотклик
             if (tg.HapticFeedback) {
                 tg.HapticFeedback.impactOccurred('light');
             }
-            
+
             // Сохраняем роль
             localStorage.setItem('user_role', role);
-            
+
             // Показываем соответствующую страницу
             if (role === 'customer') {
                 showPage('customer-page');
                 tg.showAlert(`Добро пожаловать, ${currentUser?.firstName || 'Клиент'}! 🍽️`);
                 loadRecommendedDishes();
-            } else {
+            } else if (role === 'chef') {
                 showPage('chef-page');
                 tg.showAlert(`Рады видеть вас, шеф ${currentUser?.firstName || 'Повар'}! 👨‍🍳`);
+            } else if (role === 'courier') {
+                showPage('courier-page');
+                tg.showAlert(`С возвращением, ${currentUser?.firstName || 'Курьер'}! 🚴`);
+                loadAvailableDeliveries();
             }
-            
+
             // Показываем кнопку "Назад" в Telegram
             tg.BackButton.show();
             tg.BackButton.onClick(goBackToRoleSelection);
         }
-        
+
         function showPage(pageId) {
             // Скрываем все страницы
             document.querySelectorAll('.page').forEach(page => {
                 page.classList.remove('active');
             });
-            
+
             // Показываем выбранную страницу
             document.getElementById(pageId).classList.add('active');
-            
+
             // Прокручиваем вверх
             window.scrollTo(0, 0);
         }
-        
+
         function goBackToRoleSelection() {
             showPage('role-selection-page');
             tg.BackButton.hide();
         }
-        
-        // ====== ЗАГРУЗКА ДАННЫХ ======
+
+        // ====== ФУНКЦИИ КЛИЕНТА ======
         function loadRecommendedDishes() {
             const dishesContainer = document.getElementById('recommended-dishes');
-            
+
             // Демо-данные в вашем стиле
             const dishes = [
                 {
@@ -812,7 +1063,7 @@
                     prepTime: "20 мин"
                 }
             ];
-            
+
             // Генерируем HTML для блюд
             dishesContainer.innerHTML = dishes.map(dish => `
                 <div class="dish-card">
@@ -832,24 +1083,149 @@
                 </div>
             `).join('');
         }
-        
-        // ====== КОРЗИНА ======
-        let cartItems = 0;
-        
-        function addToCart(dishId) {
-            cartItems++;
+
+        // ====== ФУНКЦИИ КУРЬЕРА ======
+        let courierStatus = false;
+
+        function toggleCourierStatus() {
+            courierStatus = !courierStatus;
             
-            // Обновляем счетчик
-            document.getElementById('cart-count').textContent = cartItems;
+            const statusText = document.getElementById('status-text');
+            const statusBtn = document.querySelector('.quick-actions .action-card:first-child');
+            
+            if (courierStatus) {
+                statusText.textContent = 'Выйти офлайн';
+                statusBtn.style.border = '2px solid #4CAF50';
+                tg.showAlert('Вы теперь онлайн! Заказы будут поступать. 🚴‍♂️');
+                loadAvailableDeliveries();
+            } else {
+                statusText.textContent = 'Выйти онлайн';
+                statusBtn.style.border = 'none';
+                tg.showAlert('Вы теперь офлайн. Отдыхайте! ☕');
+            }
             
             // Виброотклик
             if (tg.HapticFeedback) {
                 tg.HapticFeedback.impactOccurred('light');
             }
+        }
+
+        function loadAvailableDeliveries() {
+            const deliveriesContainer = document.getElementById('available-deliveries');
+
+            // Демо-данные для доставок
+            const deliveries = [
+                {
+                    id: 'DEL-001',
+                    from: "ул. Поварская, 15",
+                    to: "ул. Клиентская, 28",
+                    distance: "1.2 км",
+                    price: "250₽",
+                    time: "15-25 мин",
+                    items: "2 блюда"
+                },
+                {
+                    id: 'DEL-002',
+                    from: "ул. Кулинарная, 7",
+                    to: "ул. Заказная, 42",
+                    distance: "2.1 км",
+                    price: "320₽",
+                    time: "20-30 мин",
+                    items: "1 блюдо"
+                },
+                {
+                    id: 'DEL-003',
+                    from: "ул. Столовая, 33",
+                    to: "ул. Домашняя, 19",
+                    distance: "0.8 км",
+                    price: "180₽",
+                    time: "10-15 мин",
+                    items: "3 блюда"
+                }
+            ];
+
+            // Генерируем HTML для доставок
+            deliveriesContainer.innerHTML = deliveries.map(delivery => `
+                <div class="delivery-card">
+                    <div class="delivery-header">
+                        <div class="delivery-id">${delivery.id}</div>
+                        <div class="delivery-time">${delivery.time}</div>
+                    </div>
+                    <div class="delivery-info">
+                        <div class="info-row">
+                            <div class="info-label">Откуда:</div>
+                            <div class="info-value">${delivery.from}</div>
+                        </div>
+                        <div class="info-row">
+                            <div class="info-label">Куда:</div>
+                            <div class="info-value">${delivery.to}</div>
+                        </div>
+                        <div class="info-row">
+                            <div class="info-label">Расстояние:</div>
+                            <div class="info-value">${delivery.distance}</div>
+                        </div>
+                        <div class="info-row">
+                            <div class="info-label">Заказ:</div>
+                            <div class="info-value">${delivery.items}</div>
+                        </div>
+                    </div>
+                    <div class="delivery-actions">
+                        <button class="action-btn accept-btn" onclick="acceptDelivery('${delivery.id}')">
+                            Принять
+                        </button>
+                        <button class="action-btn reject-btn" onclick="rejectDelivery('${delivery.id}')">
+                            Отклонить
+                        </button>
+                    </div>
+                    <div style="text-align: center; margin-top: 15px; font-weight: 700; color: #4CAF50; font-size: 20px;">
+                        ${delivery.price}
+                    </div>
+                </div>
+            `).join('');
+        }
+
+        function acceptDelivery(deliveryId) {
+            // Виброотклик
+            if (tg.HapticFeedback) {
+                tg.HapticFeedback.impactOccurred('medium');
+            }
             
+            tg.showAlert(`Заказ ${deliveryId} принят! Направляйтесь к повару. 🚴`);
+            
+            // Обновляем счетчик заказов
+            const ordersCount = document.getElementById('orders-count');
+            let count = parseInt(ordersCount.textContent);
+            if (count > 0) {
+                ordersCount.textContent = count - 1;
+            }
+        }
+
+        function rejectDelivery(deliveryId) {
+            // Виброотклик
+            if (tg.HapticFeedback) {
+                tg.HapticFeedback.impactOccurred('light');
+            }
+            
+            tg.showAlert(`Заказ ${deliveryId} отклонен.`);
+        }
+
+        // ====== КОРЗИНА ======
+        let cartItems = 0;
+
+        function addToCart(dishId) {
+            cartItems++;
+
+            // Обновляем счетчик
+            document.getElementById('cart-count').textContent = cartItems;
+
+            // Виброотклик
+            if (tg.HapticFeedback) {
+                tg.HapticFeedback.impactOccurred('light');
+            }
+
             tg.showAlert('Добавлено в корзину! 🛒');
         }
-        
+
         // ====== ВСПОМОГАТЕЛЬНЫЕ ФУНКЦИИ ======
         function showAlert(message) {
             tg.showAlert(message);
@@ -857,10 +1233,11 @@
                 tg.HapticFeedback.impactOccurred('light');
             }
         }
-        
-        // Загружаем блюда при загрузке
+
+        // Загружаем данные при загрузке
         window.addEventListener('load', () => {
             loadRecommendedDishes();
+            loadAvailableDeliveries();
         });
     </script>
 </body>
